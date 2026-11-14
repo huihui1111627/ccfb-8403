@@ -1,0 +1,8 @@
+{
+ "points": 1440,
+ "mean_abs_deviation": 2.077,
+ "max_abs_deviation_pct": 1.883,
+ "over_threshold": 0,
+ "threshold_pct": 5.0,
+ "worst": []
+}

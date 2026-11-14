@@ -1,0 +1,82 @@
+{
+ "seq": 1,
+ "committed_at": 1794621760.596363,
+ "operation": "ingest_merge",
+ "schema_version": 1,
+ "files": [
+  {
+   "path": "data/turbine_id=WT001/date=2026-10-01/part-62af2637db76.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT001",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT001/date=2026-10-02/part-ab1d3b14e11d.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT001",
+   "date": "2026-10-02"
+  },
+  {
+   "path": "data/turbine_id=WT002/date=2026-10-01/part-5b5c9eb195f0.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT002",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT002/date=2026-10-02/part-b572478263f5.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT002",
+   "date": "2026-10-02"
+  },
+  {
+   "path": "data/turbine_id=WT003/date=2026-10-01/part-3ff743741398.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT003",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT003/date=2026-10-02/part-a4da3669d082.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT003",
+   "date": "2026-10-02"
+  },
+  {
+   "path": "data/turbine_id=WT004/date=2026-10-01/part-8c9de4439ef2.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT004",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT004/date=2026-10-02/part-b8ba9a25a137.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT004",
+   "date": "2026-10-02"
+  },
+  {
+   "path": "data/turbine_id=WT005/date=2026-10-01/part-1a28786ef929.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT005",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT005/date=2026-10-02/part-be8b79674649.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT005",
+   "date": "2026-10-02"
+  }
+ ],
+ "detail": {
+  "rows_in": 1440,
+  "partitions": 10
+ }
+}

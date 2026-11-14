@@ -1,0 +1,47 @@
+{
+ "seq": 1,
+ "committed_at": 1794621698.416163,
+ "operation": "ingest_merge",
+ "schema_version": 1,
+ "files": [
+  {
+   "path": "data/turbine_id=WT001/date=2026-10-01/part-d070d31f47fd.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT001",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT002/date=2026-10-01/part-b3cd106cf956.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT002",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT003/date=2026-10-01/part-10af20c498fd.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT003",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT004/date=2026-10-01/part-b7ed5b2ff8c6.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT004",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT005/date=2026-10-01/part-524eedaea91c.parquet",
+   "schema_version": 1,
+   "rows": 144,
+   "turbine_id": "WT005",
+   "date": "2026-10-01"
+  }
+ ],
+ "detail": {
+  "rows_in": 720,
+  "partitions": 5
+ }
+}

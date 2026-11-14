@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>建表</h2>
+  <form method="post" action="/tables/create" class="row">
+    表名 <input name="name" placeholder="scada_seconds" required>
+    模板 <select name="preset">
+      <option value="seconds">秒级 SCADA(turbine_id, ts, wind_speed, power, rotor_speed, temperature, status)</option>
+      <option value="tenmin">十分钟 SCADA(turbine_id, ts, power, wind_speed)</option>
+    </select>
+    <button>创建</button>
+  </form>
+  <div class="row">
+    {% for t in tables %}
+    <a href="/tables?table={{ t }}"><button class="ghost">{{ t }}</button></a>
+    {% endfor %}
+  </div>
+</div>
+
+{% if detail %}
+<div class="card">
+  <h2>{{ detail.name }} — schema v{{ detail.schema.version }}</h2>
+  <table>
+    <tr><th>列</th><th>类型</th></tr>
+    {% for c in detail.schema.columns %}<tr><td>{{ c.name }}</td><td>{{ c.dtype }}</td></tr>{% endfor %}
+  </table>
+
+  <h3>Schema 演进(老数据文件不重写,读取时自动对齐)</h3>
+  <form method="post" action="/tables/{{ detail.name }}/evolve" class="row">
+    <input type="hidden" name="op" value="add">
+    加列 <input name="column" placeholder="新列名" required>
+    <select name="dtype">{% for d in ["DOUBLE","BIGINT","VARCHAR","BOOLEAN","TIMESTAMP"] %}<option>{{ d }}</option>{% endfor %}</select>
+    <button>加列</button>
+  </form>
+  <form method="post" action="/tables/{{ detail.name }}/evolve" class="row">
+    <input type="hidden" name="op" value="rename">
+    改名 <input name="column" placeholder="旧列名" required> →
+    <input name="new_name" placeholder="新列名" required>
+    <button>改名</button>
+  </form>
+  <form method="post" action="/tables/{{ detail.name }}/evolve" class="row">
+    <input type="hidden" name="op" value="widen">
+    类型放宽 <input name="column" placeholder="列名" required> →
+    <select name="dtype">{% for d in ["DOUBLE","VARCHAR","TIMESTAMP"] %}<option>{{ d }}</option>{% endfor %}</select>
+    <button>放宽</button>
+  </form>
+
+  <h3>演进历史</h3>
+  {% if detail.ops %}
+  <table><tr><th>版本</th><th>操作</th><th>详情</th></tr>
+    {% for op in detail.ops %}
+    <tr><td>v{{ op.version }}</td><td>{{ op.op }}</td>
+        <td class="mono">{{ op }}</td></tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="mono">v1 初始 schema,无演进。</p>{% endif %}
+</div>
+
+<div class="card">
+  <h2>分区与小文件压缩</h2>
+  <form method="post" action="/tables/{{ detail.name }}/compact" class="row">
+    文件数 ≥ <input name="min_files" type="number" value="3" style="width:60px"> 的分区合并为单文件
+    <button>立即压缩</button>
+    <span class="mono">(写新文件+新快照,老文件等快照过期后回收,不影响在跑的查询)</span>
+  </form>
+  <div class="scroll"><table>
+    <tr><th>风机</th><th>日期</th><th>文件数</th><th>行数</th></tr>
+    {% for p in detail.partitions %}
+    <tr><td>{{ p.turbine_id }}</td><td>{{ p.date }}</td>
+        <td {% if p.files >= 3 %}class="bad"{% endif %}>{{ p.files }}</td>
+        <td>{{ "{:,}".format(p.rows) }}</td></tr>
+    {% endfor %}
+  </table></div>
+</div>
+{% endif %}
+{% endblock %}

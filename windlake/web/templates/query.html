@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>SQL 查询(DuckDB)</h2>
+  <form method="post" action="/query">
+    <div class="row">
+      {% for t, opts in snap_options.items() %}
+      <span>{{ t }}:
+        <select name="snap_{{ t }}">
+          <option value="">最新</option>
+          {% for o in opts %}<option value="{{ o.seq }}">{{ o.label }}</option>{% endfor %}
+        </select>
+      </span>
+      {% endfor %}
+    </div>
+    <textarea name="sql" rows="6" placeholder="SELECT turbine_id, avg(power) FROM scada_seconds GROUP BY 1">{{ sql }}</textarea>
+    <div class="row"><button>执行</button>
+      {% if elapsed is not none and result is not none %}<span class="mono">{{ result|length }} 行 / {{ elapsed }}s</span>{% endif %}
+    </div>
+  </form>
+  {% if error %}<p class="bad mono">{{ error }}</p>{% endif %}
+</div>
+
+{% if result is not none %}
+<div class="card scroll">
+  {{ result.to_html(index=False, border=0) | safe }}
+</div>
+{% endif %}
+
+<div class="card">
+  <h3>常用查询</h3>
+  <p class="mono">
+    -- 每台机日发电量(kWh)<br>
+    SELECT turbine_id, CAST(ts AS DATE) d, round(sum(power)/3600,1) kwh FROM scada_seconds GROUP BY 1,2 ORDER BY 1,2<br><br>
+    -- 秒级聚合与 SCADA 十分钟对比(需先在质量页跑聚合)<br>
+    SELECT * FROM scada_10min_calc LIMIT 20<br><br>
+    -- 在上方把某张表切到历史快照,即可按时间点回查
+  </p>
+</div>
+{% endblock %}

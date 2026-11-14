@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>快照历史</h2>
+  <form method="get" action="/snapshots" class="row">
+    表 <select name="table" onchange="this.form.submit()">
+      <option value="">-- 选择 --</option>
+      {% for t in tables %}<option {% if t==selected %}selected{% endif %}>{{ t }}</option>{% endfor %}
+    </select>
+  </form>
+
+  {% if snaps %}
+  <table>
+    <tr><th>快照</th><th>提交时间</th><th>操作</th><th>schema</th><th>文件数</th><th>行数</th><th>详情</th><th></th></tr>
+    {% for s in snaps %}
+    <tr><td>#{{ s.seq }}</td><td>{{ s.committed_at }}</td><td>{{ s.operation }}</td>
+        <td>v{{ s.schema_version }}</td><td>{{ s.files }}</td>
+        <td>{{ "{:,}".format(s.rows) }}</td>
+        <td class="mono">{{ s.detail }}</td>
+        <td><a href="/snapshots?table={{ selected }}&preview={{ s.seq }}">回查</a></td></tr>
+    {% endfor %}
+  </table>
+
+  <h3>过期清理</h3>
+  <form method="post" action="/snapshots/expire" class="row">
+    <input type="hidden" name="table" value="{{ selected }}">
+    保留 <input name="retain_hours" type="number" value="168" style="width:80px"> 小时内的快照,
+    且至少保留最近 <input name="keep_last" type="number" value="5" style="width:60px"> 个
+    <button>清理</button>
+  </form>
+  {% endif %}
+</div>
+
+{% if preview_df is not none %}
+<div class="card">
+  <h2>快照 #{{ preview }} 时刻的数据(前 50 行)</h2>
+  <p class="mono">这就是该快照提交时看到的内容 —— 之后无论怎么写入/压缩/演进,回查结果不变。</p>
+  <div class="scroll">{{ preview_df.to_html(index=False, border=0) | safe }}</div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>最近聚合对比结果</h2>
+  {% if summary %}
+  <table>
+    <tr><th>对比点数</th><th>平均绝对偏差(kW)</th><th>最大偏差(%)</th><th>超阈值点数</th><th>阈值</th></tr>
+    <tr><td>{{ "{:,}".format(summary.points) }}</td><td>{{ summary.mean_abs_deviation }}</td>
+        <td>{{ summary.max_abs_deviation_pct }}</td>
+        <td {% if summary.over_threshold %}class="bad"{% endif %}>{{ summary.over_threshold }}</td>
+        <td>{{ summary.threshold_pct }}%</td></tr>
+  </table>
+  {% if summary.worst %}
+  <h3>偏差最大的点</h3>
+  <div class="scroll"><table>
+    <tr>{% for k in summary.worst[0].keys() %}<th>{{ k }}</th>{% endfor %}</tr>
+    {% for w in summary.worst %}<tr>{% for v in w.values() %}<td>{{ v }}</td>{% endfor %}</tr>{% endfor %}
+  </table></div>
+  {% endif %}
+  {% else %}
+  <p>还没有对比结果,请到 <a href="/quality">数据质量</a> 页跑「聚合并对比」。</p>
+  {% endif %}
+</div>
+{% endblock %}

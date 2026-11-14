@@ -1,0 +1,37 @@
+{
+ "version": 3,
+ "columns": [
+  {
+   "name": "turbine_id",
+   "dtype": "VARCHAR"
+  },
+  {
+   "name": "ts",
+   "dtype": "TIMESTAMP"
+  },
+  {
+   "name": "wind_speed",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "power",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "rotor_speed",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "temperature",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "run_status",
+   "dtype": "VARCHAR"
+  },
+  {
+   "name": "gearbox_temp",
+   "dtype": "DOUBLE"
+  }
+ ]
+}

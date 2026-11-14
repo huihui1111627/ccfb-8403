@@ -1,0 +1,21 @@
+{
+ "version": 1,
+ "columns": [
+  {
+   "name": "turbine_id",
+   "dtype": "VARCHAR"
+  },
+  {
+   "name": "ts",
+   "dtype": "TIMESTAMP"
+  },
+  {
+   "name": "power",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "wind_speed",
+   "dtype": "DOUBLE"
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "version": 1,
+ "columns": [
+  {
+   "name": "turbine_id",
+   "dtype": "VARCHAR"
+  },
+  {
+   "name": "ts",
+   "dtype": "TIMESTAMP"
+  },
+  {
+   "name": "power_avg",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "wind_speed_avg",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "rotor_speed_avg",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "temperature_avg",
+   "dtype": "DOUBLE"
+  },
+  {
+   "name": "sample_count",
+   "dtype": "BIGINT"
+  }
+ ]
+}

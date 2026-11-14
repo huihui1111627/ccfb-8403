@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>数据质量规则</h2>
+  <form method="get" action="/quality" class="row">
+    表 <select name="table" onchange="this.form.submit()">
+      <option value="">-- 选择 --</option>
+      {% for t in tables %}<option {% if t==selected %}selected{% endif %}>{{ t }}</option>{% endfor %}
+    </select>
+  </form>
+  {% if selected %}
+  <form method="post" action="/quality/rules">
+    <input type="hidden" name="table" value="{{ selected }}">
+    <textarea name="rules" rows="10">{{ rules_json }}</textarea>
+    <div class="row">
+      <button>保存规则</button>
+    </div>
+  </form>
+  <form method="post" action="/quality/run" class="row">
+    <input type="hidden" name="table" value="{{ selected }}">
+    <button>立即质检</button>
+    <span class="mono">规则类型:null_rate(空值率) / range(范围) / spike(跳变) / stuck(卡死值)</span>
+  </form>
+  {% endif %}
+</div>
+
+{% if last_report %}
+<div class="card">
+  <h2>最近一次质检 — {{ last_report.run_at_iso }}(共 {{ "{:,}".format(last_report.total_rows) }} 行)</h2>
+  {% for r in last_report.results %}
+  <h3>{% if r.ok %}<span class="ok">✓{% else %}<span class="bad">✗{% endif %} {{ r.rule.name }}</span>
+      <span class="mono">({{ r.rule.type }} on {{ r.rule.column }})</span></h3>
+  <p>违规 {{ "{:,}".format(r.violations) }} 行({{ r.pct }}%)</p>
+  {% if r.samples %}
+  <div class="scroll"><table>
+    <tr>{% for k in r.samples[0].keys() %}<th>{{ k }}</th>{% endfor %}</tr>
+    {% for s in r.samples %}<tr>{% for v in s.values() %}<td>{{ v }}</td>{% endfor %}</tr>{% endfor %}
+  </table></div>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="card">
+  <h2>秒级聚合 vs SCADA 十分钟</h2>
+  <form method="post" action="/quality/aggregate" class="row">
+    秒级表 <input name="seconds_table" value="scada_seconds">
+    SCADA 十分钟表 <input name="scada_table" value="scada_10min">
+    <button>聚合并对比</button>
+    <a href="/quality/compare"><button type="button" class="ghost">查看最近对比结果</button></a>
+  </form>
+</div>
+
+{% if reports %}
+<div class="card">
+  <h2>历史质检报告</h2>
+  <table><tr><th>时间</th><th>行数</th><th>未通过规则数</th></tr>
+    {% for r in reports %}
+    <tr><td>{{ r.run_at_iso }}</td><td>{{ "{:,}".format(r.total_rows) }}</td>
+        <td {% if r.failed %}class="bad"{% endif %}>{{ r.failed }}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+{% endblock %}

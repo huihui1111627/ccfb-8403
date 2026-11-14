@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>湖内表概览</h2>
+  <div class="scroll"><table>
+    <tr><th>表</th><th>行数</th><th>文件数</th><th>快照数</th><th>schema 版本</th></tr>
+    {% for t in overview %}
+    <tr><td><a href="/tables?table={{ t.name }}">{{ t.name }}</a></td>
+        <td>{{ "{:,}".format(t.rows) }}</td><td>{{ t.files }}</td>
+        <td><a href="/snapshots?table={{ t.name }}">{{ t.snapshots }}</a></td>
+        <td>v{{ t.schema_version }}</td></tr>
+    {% endfor %}
+  </table></div>
+</div>
+
+<div class="card">
+  <h2>生成测试数据</h2>
+  <form method="post" action="/ingest/generate" class="row">
+    风机数 <input name="turbines" type="number" value="10" style="width:70px">
+    天数 <input name="days" type="number" value="3" style="width:60px">
+    <button>生成 CSV</button>
+    <span class="mono">(几百台一个月:300 × 30,秒级约 7.8 亿行,按天分文件)</span>
+  </form>
+</div>
+
+<div class="card">
+  <h2>CSV 增量写入(按风机+日期自动分区,迟到数据自动合并去重)</h2>
+  {% if csvs %}
+  <form method="post" action="/ingest/file" class="row">
+    目标表
+    <select name="table">{% for t in tables %}<option>{{ t }}</option>{% endfor %}</select>
+    文件
+    <select name="filename">{% for f in csvs %}<option>{{ f }}</option>{% endfor %}</select>
+    <button>写入</button>
+  </form>
+  {% else %}<p>还没有 CSV,先在上方生成。</p>{% endif %}
+  <h3>或上传 CSV</h3>
+  <form method="post" action="/ingest/upload" enctype="multipart/form-data" class="row">
+    <select name="table">{% for t in tables %}<option>{{ t }}</option>{% endfor %}</select>
+    <input type="file" name="file" accept=".csv">
+    <button>上传写入</button>
+  </form>
+</div>
+{% endblock %}

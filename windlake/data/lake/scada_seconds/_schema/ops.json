@@ -1,0 +1,16 @@
+[
+ {
+  "op": "add_column",
+  "column": "gearbox_temp",
+  "dtype": "DOUBLE",
+  "version": 2,
+  "at": 1794621760.4055638
+ },
+ {
+  "op": "rename_column",
+  "from": "status",
+  "to": "run_status",
+  "version": 3,
+  "at": 1794621760.422003
+ }
+]

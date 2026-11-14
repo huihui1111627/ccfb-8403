@@ -1,0 +1,82 @@
+{
+ "seq": 2,
+ "committed_at": 1794621698.882422,
+ "operation": "ingest_merge",
+ "schema_version": 1,
+ "files": [
+  {
+   "path": "data/turbine_id=WT001/date=2026-10-01/part-9a6e4a289664.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT001",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT002/date=2026-10-01/part-602d0ed47cac.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT002",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT003/date=2026-10-01/part-e097232fd54e.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT003",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT004/date=2026-10-01/part-223d66fcd787.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT004",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT005/date=2026-10-01/part-db3e22cc0b47.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT005",
+   "date": "2026-10-01"
+  },
+  {
+   "path": "data/turbine_id=WT001/date=2026-10-02/part-9134159c3a05.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT001",
+   "date": "2026-10-02"
+  },
+  {
+   "path": "data/turbine_id=WT002/date=2026-10-02/part-8d94426b96e4.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT002",
+   "date": "2026-10-02"
+  },
+  {
+   "path": "data/turbine_id=WT003/date=2026-10-02/part-741eaf6ac527.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT003",
+   "date": "2026-10-02"
+  },
+  {
+   "path": "data/turbine_id=WT004/date=2026-10-02/part-f9bd4b5b37e6.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT004",
+   "date": "2026-10-02"
+  },
+  {
+   "path": "data/turbine_id=WT005/date=2026-10-02/part-0e85f24364a9.parquet",
+   "schema_version": 1,
+   "rows": 86400,
+   "turbine_id": "WT005",
+   "date": "2026-10-02"
+  }
+ ],
+ "detail": {
+  "rows_in": 432000,
+  "partitions": 5
+ }
+}
